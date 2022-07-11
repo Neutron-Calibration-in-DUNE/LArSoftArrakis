@@ -1,0 +1,8 @@
+#include "geometry_dune.fcl"
+BEGIN_PROLOG
+
+argonsphere_geo:        @local::dune35kt_geo
+argonsphere_geo.GDML:   "ArgonSphere.gdml"
+argonsphere_geo.ROOT:   "ArgonSphere.gdml"  
+
+END_PROLOG
