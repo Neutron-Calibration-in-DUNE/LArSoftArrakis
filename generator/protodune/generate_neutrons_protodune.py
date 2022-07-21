@@ -37,7 +37,7 @@ if __name__ == "__main__":
     # number of events to generate
     num_events = 25
     # number of neutrons to generate per event
-    num_neutrons = 1450
+    num_neutrons = 250
     # output file name
     num_files = 1
     
