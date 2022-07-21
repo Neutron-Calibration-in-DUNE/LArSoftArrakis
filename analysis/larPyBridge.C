@@ -29,7 +29,6 @@
 #include "TAxis.h"
 #include "TColor.h"
 #include "TAttMarker.h"
-#include "ArtieStyle.C"
 
 std::vector<int> *u1_tdc = 0;
 std::vector<int> *u1_channel = 0;
