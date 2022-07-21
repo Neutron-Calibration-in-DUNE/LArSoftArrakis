@@ -112,8 +112,8 @@ outputs:
     }
 }
 
-physics.producers.generator.InputFileName:  "../../inputs/protodune/protodune_100_1450_0.dat"
-physics.producers.generator.maxEvents:      100
+physics.producers.generator.InputFileName:  "../../inputs/protodune/protodune_25_1450_0.dat"
+physics.producers.generator.maxEvents:      10
 
 physics.producers.largeant.ChargeRecoveryMargin: 2.5 # cm
 services.LArG4Parameters.UseCustomPhysics:      true
