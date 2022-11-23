@@ -53,22 +53,39 @@ output_dir = "../inputs/protodune/"
 if not os.path.isdir(output_dir):
     os.makedirs(output_dir)
 
-def sample_gamma_momentum():
-    """
-    Determine the gamma cascade to generate, sample and return the gamma momentum
-    """
-    i = np.random.choice(np.arange(15), p=cas_prob)
-    cas = np.array(cascades[i])
-    num_gammas = len(cas)
-    vecs = np.random.randn(3, num_gammas)
-    vecs /= np.linalg.norm(vecs, axis=0)
-    return vecs*cas*0.001 #converting into GeV
+def sample_gamma_momentum(nCap: bool, gamma_E, numGammas = 1):
+    if (nCap == True):
+        """
+        Determine the gamma cascade to generate, sample and return the gamma momentum
+        """
+        i = np.random.choice(np.arange(15), p=cas_prob)
+        cas = np.array(cascades[i])
+        num_gammas = len(cas)
+        vecs = np.random.randn(3, num_gammas)
+        vecs /= np.linalg.norm(vecs, axis=0)
+        return vecs*cas*0.001 #converting into GeV
+    else:
+        """
+        Generate "numGammas" random points on a sphere of radius
+        "gamma_E" (in MeV)
+        """
+        gamma_mag = np.random.choice(gamma_E)
+        assert gamma_mag > 0., "Magnitude must be greater than 0.!"
+
+        vecs = np.random.randn(3, numGammas)
+        vecs /= np.linalg.norm(vecs, axis=0)
+        vecs *= gamma_mag
+        return vecs*0.001 #converting into GeV
+
 
 def generate_ddg_gammas(
     num_events:         int,
     x_pos:              int, 
     y_pos:              int,
     z_pos:              int,
+    neutronCap:         bool,
+    n_gammas:           int,
+    momentum_magnitude: float,
     output_file:        str,
 ) -> None:
     """
@@ -78,7 +95,7 @@ def generate_ddg_gammas(
     events = []
     for i in range(num_events):
         # generate mono-energtic momentum distribution
-        px, py, pz = sample_gamma_momentum()
+        px, py, pz = sample_gamma_momentum(neutronCap, momentum_magnitude, n_gammas)
         # insert event header for HEPevt format
         events.append([str(i) + " " + str(len(px))])
         for j in range(len(px)):
@@ -109,17 +126,31 @@ if __name__ == "__main__":
     # z position
     z_pos = 305
     # number of events to generate
-    num_events = 100
+    num_events = 300
     # number of files to generate
     num_files = 1
     
     for ii in range(num_files):
         # output file name
-        output_file = f"{output_dir}PD_gamma_test_{num_events}_{ii}.dat"
+        # output_file = f"{output_dir}PD_gamma_test_{num_events}_{ii}.dat"
+        # generate_ddg_gammas(
+        #     num_events,
+        #     x_pos, 
+        #     y_pos, 
+        #     z_pos,
+        #     False,
+        #     0,
+        #     [0],
+        #     output_file,
+        # )
+        output_file = f"{output_dir}gamma_pointCloud_input_{num_events}_{ii}.dat"
         generate_ddg_gammas(
             num_events,
             x_pos, 
             y_pos, 
             z_pos,
+            False,
+            1,
+            [4.745, 1.1866],
             output_file,
         )
