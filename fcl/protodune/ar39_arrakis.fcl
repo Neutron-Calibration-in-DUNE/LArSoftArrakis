@@ -22,13 +22,13 @@ services:
     @table::protodune_refactored_simulation_services
     FileCatalogMetadata:    @local::art_file_catalog_mc
     Geometry:                 @local::protodunev7_ddg_geo
-    BackTrackerService: {
-        BackTracker: {
-            SimChannelModuleLabel: "tpcrawdecoder:simpleSC"
-            G4ModuleLabel: "largeant"
-            MinimumHitEnergyFraction: 1e-1
-        }
-    }
+    # BackTrackerService: {
+    #     BackTracker: {
+    #         SimChannelModuleLabel: "tpcrawdecoder:simpleSC"
+    #         G4ModuleLabel: "largeant"
+    #         MinimumHitEnergyFraction: 1e-1
+    #     }
+    # }
 }
 
 physics:
