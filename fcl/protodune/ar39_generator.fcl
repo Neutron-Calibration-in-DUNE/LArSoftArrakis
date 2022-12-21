@@ -72,19 +72,3 @@ outputs:
 }
 
 physics.producers.Ar39.maxEvents:      25
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-Ar39:       @local::protodunesp_39ar            # Ar39 decay    - 1.41e-3 Bq/cc
