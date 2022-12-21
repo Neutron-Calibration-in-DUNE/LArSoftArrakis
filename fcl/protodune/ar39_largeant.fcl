@@ -1,3 +1,4 @@
+#include "Arrakis.fcl"
 #include "services_refactored_pdune.fcl"
 #include "singles_dune.fcl"
 #include "textfilegen.fcl"
