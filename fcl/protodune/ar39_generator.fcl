@@ -24,7 +24,7 @@ source:
 {
     module_type: EmptyEvent
     timestampPlugin: { plugin_type: "GeneratedEventTimestamp" }
-    maxEvents:   10
+    maxEvents:   25
     firstRun:    1           # Run number to use for this file
     firstEvent:  1           # number of first event in the file
 }
@@ -36,13 +36,13 @@ physics:
 {
     producers:
     {
-        generator:      @local::standard_textfilegen 
+        Ar39:       @local::protodunesp_39ar            # Ar39 decay    - 1.41e-3 Bq/cc 
         rns:            { module_type: "RandomNumberSaver" }
     }
 
     #define the producer and filter modules for this path, order matters, 
     #filters reject all following items.  see lines starting physics.producers below
-    simulate: [generator, rns]
+    simulate: [Ar39, rns]
  
     #define the output stream, there could be more than one if using filters 
     stream1:  [ out1 ]
@@ -64,12 +64,27 @@ outputs:
     out1:
     {
         module_type:        RootOutput
-        fileName:           "outputs/only_neutrons_generator_output.root"
+        fileName:           "outputs/ar39_generator_output.root"
         dataTier:           "generated"
         compressionLevel:   1
         outputCommands:     [ "keep *" ]
     }
 }
 
-physics.producers.generator.InputFileName:  "../../inputs/protodune/protodune_100_1450_0.dat"
-physics.producers.generator.maxEvents:      10
+physics.producers.generator.maxEvents:      25
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+Ar39:       @local::protodunesp_39ar            # Ar39 decay    - 1.41e-3 Bq/cc
