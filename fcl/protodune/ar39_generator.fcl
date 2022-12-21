@@ -71,7 +71,7 @@ outputs:
     }
 }
 
-physics.producers.generator.maxEvents:      25
+physics.producers.Ar39.maxEvents:      25
 
 
 
