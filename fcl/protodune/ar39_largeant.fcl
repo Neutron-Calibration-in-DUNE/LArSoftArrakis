@@ -105,7 +105,7 @@ outputs:
     out1:
     {
         module_type:        RootOutput
-        fileName:           "outputs/only_neutrons_largeant_output.root"
+        fileName:           "outputs/ar39_largeant_output.root"
         dataTier:           "generated"
         compressionLevel:   1
         outputCommands:     [ "keep *" ]
