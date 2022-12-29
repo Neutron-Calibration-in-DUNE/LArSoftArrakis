@@ -65,7 +65,7 @@ source:
 {
     module_type: EmptyEvent
     timestampPlugin: { plugin_type: "GeneratedEventTimestamp" }
-    maxEvents:   10
+    maxEvents:   1
     firstRun:    1           # Run number to use for this file
     firstEvent:  1           # number of first event in the file
 }
@@ -124,7 +124,7 @@ physics:
 #block and put it in the trigger_paths then you need to put a SelectEvents: {SelectEvents: [XXX]}
 #entry in the output stream you want those to go to, where XXX is the label of the filter module(s)
 
-physics.producers.Ar39.maxEvents:      25
+physics.producers.Ar39.maxEvents:      1
 
 physics.producers.largeant.ChargeRecoveryMargin: 2.5 # cm
 services.LArG4Parameters.UseCustomPhysics:      true
