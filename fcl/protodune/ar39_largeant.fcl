@@ -1,14 +1,20 @@
 #include "Arrakis.fcl"
+#include "simulationservices_dune.fcl"
+#include "services_dune.fcl"
 #include "services_refactored_pdune.fcl"
 #include "singles_dune.fcl"
 #include "textfilegen.fcl"
 #include "corsika_protodune.fcl"
 #include "dune_radiological_model.fcl"
 #include "geometry_dune.fcl"
-
 #include "LArG4_dune.fcl"
 #include "IonAndScint_dune.fcl"
 #include "PDFastSim_dune.fcl"
+#include "wirecell_dune.fcl"
+#include "opticaldetectormodules_dune.fcl"
+#include "CRT.fcl"
+#include "detsim_dune10kt_wirecell_refactored.fcl"
+#include "tools_dune.fcl"
 
 process_name: pdunefullsim
 
@@ -75,6 +81,9 @@ physics:
         largeant:       @local::protodune_larg4
         IonAndScint:    @local::protodune_ionandscint
         PDFastSim:      @local::protodune_pdfastsim_pvs
+        tpcrawdecoder:  @local::wirecell_protodunespmc
+        opdigi:         @local::protodune_opdigi_refactor
+        crt:            @local::CRTSimRefac_standard
         rns:        { module_type: "RandomNumberSaver" }
     }
 
@@ -91,6 +100,9 @@ physics:
         largeant, 
         IonAndScint, 
         PDFastSim,
+        tpcrawdecoder,
+        opdigi,
+        crt,
         rns
     ]
  
@@ -134,3 +146,8 @@ services.LArG4Parameters.ParticleKineticEnergyCut:  0.0 # GeV
 services.LArG4Parameters.StoreTrajectories:         true
 services.LArG4Parameters.VisualizeNeutrals:         true
 #services.LArG4Parameters.VisualizationEnergyCut:    1e-9 # GeV
+
+physics.producers.tpcrawdecoder.wcls_main.structs.DL: 4.0
+physics.producers.tpcrawdecoder.wcls_main.structs.DT: 8.8
+physics.producers.tpcrawdecoder.wcls_main.structs.lifetime: 35.0
+physics.producers.tpcrawdecoder.wcls_main.structs.driftSpeed:   1.60563
