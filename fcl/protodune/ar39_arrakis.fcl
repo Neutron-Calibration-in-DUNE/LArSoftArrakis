@@ -42,4 +42,4 @@ physics:
 }
 
 source.fileNames:                       ["outputs/ar39_largeant_output.root"]
-source.maxEvents:                       25
+source.maxEvents:                       1
