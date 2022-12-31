@@ -100,7 +100,7 @@ physics:
         largeant, 
         IonAndScint, 
         #PDFastSim,
-        #tpcrawdecoder,
+        tpcrawdecoder,
         #opdigi,
         #crt,
         rns
