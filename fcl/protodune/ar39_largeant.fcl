@@ -99,10 +99,10 @@ physics:
         Ar39, 
         largeant, 
         IonAndScint, 
-        PDFastSim,
-        tpcrawdecoder,
-        opdigi,
-        crt,
+        #PDFastSim,
+        #tpcrawdecoder,
+        #opdigi,
+        #crt,
         rns
     ]
  
