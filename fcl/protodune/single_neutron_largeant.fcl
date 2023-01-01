@@ -154,3 +154,7 @@ services.LArG4Parameters.KeepTransportation:        true
 # physics.producers.tpcrawdecoder.wcls_main.structs.DT: 8.8
 # physics.producers.tpcrawdecoder.wcls_main.structs.lifetime: 35.0
 # physics.producers.tpcrawdecoder.wcls_main.structs.driftSpeed:   1.60563
+
+analyzers.ana.SavePrimaryData:          false
+analyzers.ana.SavePrimaryDataEdeps:     false
+analyzers.ana.SavePrimaryDataRawTPC:    false
