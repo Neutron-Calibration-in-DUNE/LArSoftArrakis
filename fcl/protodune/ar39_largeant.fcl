@@ -127,6 +127,7 @@ physics:
 physics.producers.Ar39.maxEvents:      1
 
 physics.producers.largeant.ChargeRecoveryMargin: 2.5 # cm
+
 services.LArG4Parameters.UseCustomPhysics:      true
 services.LArG4Parameters.EnabledPhysics: [ "LowEnergyEm",
                                            "FastOptical",
@@ -144,6 +145,7 @@ services.LArG4Parameters.KeepEMShowerDaughters:     true
 # let's try setting this to zero to see what happens.
 services.LArG4Parameters.ParticleKineticEnergyCut:  0.0 # GeV
 services.LArG4Parameters.StoreTrajectories:         true
+services.LArG4Parameters.SparsifyTrajectories:      false
 services.LArG4Parameters.VisualizeNeutrals:         true
 services.LArG4Parameters.KeepTransportation:        true
 #services.LArG4Parameters.VisualizationEnergyCut:    1e-9 # GeV
@@ -152,3 +154,7 @@ services.LArG4Parameters.KeepTransportation:        true
 # physics.producers.tpcrawdecoder.wcls_main.structs.DT: 8.8
 # physics.producers.tpcrawdecoder.wcls_main.structs.lifetime: 35.0
 # physics.producers.tpcrawdecoder.wcls_main.structs.driftSpeed:   1.60563
+
+analyzers.ana.SavePrimaryData:          false
+analyzers.ana.SavePrimaryDataEdeps:     false
+analyzers.ana.SavePrimaryDataRawTPC:    false
