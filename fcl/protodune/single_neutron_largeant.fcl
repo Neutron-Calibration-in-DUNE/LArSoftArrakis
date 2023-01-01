@@ -147,6 +147,7 @@ services.LArG4Parameters.ParticleKineticEnergyCut:  0.0 # GeV
 services.LArG4Parameters.StoreTrajectories:         true
 services.LArG4Parameters.SparsifyTrajectories:      false
 services.LArG4Parameters.VisualizeNeutrals:         true
+services.LArG4Parameters.TrackIDOffset:             1
 services.LArG4Parameters.KeepTransportation:        true
 #services.LArG4Parameters.VisualizationEnergyCut:    1e-9 # GeV
 
