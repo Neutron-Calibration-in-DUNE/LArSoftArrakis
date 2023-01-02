@@ -75,7 +75,7 @@ def generate_ddg_neutrons(
     events = []
     for i in range(num_events):
         # insert event header for HEPevt format
-        events.append([str(i) + " " + str(num_neutrons)])
+        events.append([str(i+1) + " " + str(num_neutrons)])
         # generate mono-energtic momentum distribution
         px, py, pz = sample_spherical_mag(num_neutrons, momentum_magnitude)
         if check_mags:
