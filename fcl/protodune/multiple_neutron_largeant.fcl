@@ -77,6 +77,7 @@ physics:
 {
     producers:
     {
+        Ar39:           @local::protodunesp_39ar
         SingleNeutron:  @local::standard_textfilegen
         largeant:       @local::protodune_larg4
         IonAndScint:    @local::protodune_ionandscint
@@ -96,6 +97,7 @@ physics:
     #filters reject all following items.  see lines starting physics.producers below
     simulate: 
     [
+        Ar39,
         SingleNeutron, 
         largeant, 
         IonAndScint, 
