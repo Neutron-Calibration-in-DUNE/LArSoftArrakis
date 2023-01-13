@@ -10,6 +10,8 @@ import os
 import sys
 sys.path.append("../")
 import PNS_generator
+from PNS_generator import *
+import numpy as np
 
 # 1x2x6 coordinates
 # center of the active volume
@@ -28,12 +30,16 @@ if not os.path.isdir(output_dir):
 if __name__ == "__main__":
     # DDG mono-energetic total energy
     # (same as the settings for protoDUNE)
-    energy = .942065
+    #momentum_magnitude = 0.0685863
+
+    momentum_magnitude = 0.00001
+    energy = np.sqrt(M_NEUTRON**2 + momentum_magnitude**2)
+    #energy = .942065
     # (same as the settings for protoDUNE)
-    momentum_magnitude = 0.0685863
-    x_pos = x_ddg       
-    y_pos = y_ddg
-    z_pos = z_ddg     
+    
+    x_pos = x_center       
+    y_pos = y_center
+    z_pos = z_center     
     # number of events to generate
     num_events = 25
     # number of neutrons to generate per event
