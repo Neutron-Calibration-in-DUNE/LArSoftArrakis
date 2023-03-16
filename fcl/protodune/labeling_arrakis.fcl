@@ -1,0 +1,45 @@
+#include "Arrakis.fcl"
+#include "services_refactored_pdune.fcl"
+#include "simulationservices_dune.fcl"
+#include "services_dune.fcl"
+#include "geometry_dune.fcl"
+#include "singles_dune.fcl"
+#include "detsim_dune10kt_wirecell_refactored.fcl"
+
+process_name:   Arrakis
+
+source:
+{
+    module_type:    RootInput
+    maxEvents:      -1
+}
+services:
+{
+    TFileService:   { fileName: "arrakis_output_0.root" }
+    TimeTracker:    {}
+    RandomNumberGenerator:  {}
+    MemoryTracker:          {}
+    @table::protodune_refactored_simulation_services
+    FileCatalogMetadata:    @local::art_file_catalog_mc
+    Geometry:                 @local::protodunev7_ddg_geo
+    BackTrackerService: {
+        BackTracker: {
+            SimChannelModuleLabel: "tpcrawdecoder:simpleSC"
+            G4ModuleLabel: "largeant"
+            MinimumHitEnergyFraction: 1e-1
+        }
+    }
+}
+
+physics:
+{
+    analyzers:
+    {
+        ana: @local::Arrakis
+    }
+    analysis:  [ ana ]
+    end_paths: [ analysis ]
+}
+
+source.fileNames:                       ["outputs/labeling_sim_arrakis.root"]
+source.maxEvents:                       1
