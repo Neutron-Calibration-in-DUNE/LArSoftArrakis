@@ -189,14 +189,14 @@ services.DetectorPropertiesService:    @local::protodunesp_detproperties
 services.DetectorPropertiesService.GetHVDriftfromSamweb:           false
 services.DetectorPropertiesService.GetReadOutWindowSizefromSamweb: false
 services.DetectorPropertiesService.UseRunDependentTemperature:     false
-services.RawDigitPrepService.ToolNames: @local::pdsim_dataprep_tools_wirecell
+# services.RawDigitPrepService.ToolNames: @local::pdsim_dataprep_tools_wirecell
 
 physics.producers.tpcrawdecoder.wcls_main.structs.DL: 4.0
 physics.producers.tpcrawdecoder.wcls_main.structs.DT: 8.8
 physics.producers.tpcrawdecoder.wcls_main.structs.lifetime: 35.0
 physics.producers.tpcrawdecoder.wcls_main.structs.driftSpeed:   1.565
 
-physics.producers.caldata.DigitLabel:                       "tpcrawdecoder:daq" 
-physics.producers.caldata.WireName:                         "dataprep" 
+# physics.producers.caldata.DigitLabel:                       "tpcrawdecoder:daq" 
+# physics.producers.caldata.WireName:                         "dataprep" 
 
-physics.producers.wclsdatasp.wcls_main.params.reality:    "sim"
+# physics.producers.wclsdatasp.wcls_main.params.reality:    "sim"
