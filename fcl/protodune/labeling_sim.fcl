@@ -83,11 +83,12 @@ physics:
         Rn222:          @local::protodunesp_222rn
         Cosmics:        @local::protodune_corsika_cmc
         HEPevt:         @local::standard_textfilegen
-        SingleNeutron:  @local::standard_textfilegen
+        PNS:            @local::standard_textfilegen
         largeant:       @local::protodune_larg4
         IonAndScint:    @local::protodune_ionandscint
         PDFastSim:      @local::protodune_pdfastsim_pvs
         tpcrawdecoder:  @local::wirecell_protodunespmc
+        wclsdatasp:     @local::protodunespdata_wctsp
         opdigi:         @local::protodune_opdigi_refactor
         crt:            @local::CRTSimRefac_standard
         rns:            { module_type: "RandomNumberSaver" }
@@ -101,13 +102,14 @@ physics:
         Ar42,
         Kr85,
         Rn222,
-        #Cosmics,
-        HEPevt,
-        #SingleNeutron, 
+        Cosmics,
+        #HEPevt,
+        PNS, 
         largeant, 
         IonAndScint, 
         #PDFastSim,
         tpcrawdecoder,
+        wclsdatasp,
         #opdigi,
         #crt,
         rns
@@ -141,8 +143,10 @@ outputs:
 #block and put it in the trigger_paths then you need to put a SelectEvents: {SelectEvents: [XXX]}
 #entry in the output stream you want those to go to, where XXX is the label of the filter module(s)
 
-physics.producers.HEPevt.InputFileName:     "../../inputs/protodune/labeling_sim.dat"
-physics.producers.HEPevt.maxEvents:         1
+#physics.producers.HEPevt.InputFileName:     "../../inputs/protodune/labeling_sim.dat"
+#physics.producers.HEPevt.maxEvents:         1
+physics.producers.PNS.InputFileName:        "../../inputs/protodune/protodune_10_1450_0.dat"
+physics.producers.PNS.maxEvents:            1
 
 physics.producers.largeant.ChargeRecoveryMargin: 2.5 # cm
 
