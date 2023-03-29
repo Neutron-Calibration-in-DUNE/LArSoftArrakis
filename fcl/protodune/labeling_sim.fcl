@@ -65,7 +65,7 @@ source:
 {
     module_type: EmptyEvent
     timestampPlugin: { plugin_type: "GeneratedEventTimestamp" }
-    maxEvents:   1
+    maxEvents:   10
     firstRun:    1           # Run number to use for this file
     firstEvent:  1           # number of first event in the file
 }
@@ -95,36 +95,47 @@ physics:
         rns:            { module_type: "RandomNumberSaver" }
     }
 
+    analyzers:
+    {
+        ana: @local::Arrakis
+    }
+
     #define the producer and filter modules for this path, order matters, 
     #filters reject all following items.  see lines starting physics.producers below
     simulate: 
     [
-        #Ar39,
-        #Ar42,
-        #Kr85,
-        #Rn222,
-        #Cosmics,
-        HEPevt,
-        #PNS, 
+        Ar39,
+        Ar42,
+        Kr85,
+        Rn222,
+        Cosmics,
+        #HEPevt,
+        PNS, 
         largeant, 
         IonAndScint, 
         #PDFastSim,
         tpcrawdecoder,
         #opdigi,
         #crt,
-        caldata,
-        wclsdatasp,
+        #caldata,
+        #wclsdatasp,
         rns
+    ]
+
+    analysis:  
+    [ 
+        ana 
     ]
  
     #define the output stream, there could be more than one if using filters 
-    stream1:  [ out1 ]
+    #stream1:  [ out1 ]
 
     #trigger_paths is a keyword and contains the paths that modify the art::event, 
     #ie filters and producers
-    trigger_paths: [simulate]
+    trigger_paths:  [simulate]
 
-    end_paths:     [stream1] 
+    #end_paths:      [stream1] 
+    end_paths:      [ analysis ]
 
 }
 
@@ -148,7 +159,7 @@ outputs:
 physics.producers.HEPevt.InputFileName:     "../../inputs/protodune/labeling_sim.dat"
 physics.producers.HEPevt.maxEvents:         1
 physics.producers.PNS.InputFileName:        "../../inputs/protodune/protodune_10_1450_0.dat"
-physics.producers.PNS.maxEvents:            1
+physics.producers.PNS.maxEvents:            10
 
 physics.producers.largeant.ChargeRecoveryMargin: 2.5 # cm
 
