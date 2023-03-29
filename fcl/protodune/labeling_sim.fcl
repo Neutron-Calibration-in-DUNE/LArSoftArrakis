@@ -88,9 +88,10 @@ physics:
         IonAndScint:    @local::protodune_ionandscint
         PDFastSim:      @local::protodune_pdfastsim_pvs
         tpcrawdecoder:  @local::wirecell_protodunespmc
-        wclsnfsp:       @local::protodunespdata_nfsp
         opdigi:         @local::protodune_opdigi_refactor
         crt:            @local::CRTSimRefac_standard
+        caldata:        @local::producer_adcprep_notool          
+        wclsdatasp:     @local::protodunespdata_wctsp
         rns:            { module_type: "RandomNumberSaver" }
     }
 
@@ -109,9 +110,10 @@ physics:
         IonAndScint, 
         #PDFastSim,
         tpcrawdecoder,
-        wclsnfsp,
         #opdigi,
         #crt,
+        caldata,
+        wclsdatasp,
         rns
     ]
  
@@ -172,9 +174,18 @@ services.LArG4Parameters.VisualizeNeutrals:         true
 services.LArG4Parameters.KeepTransportation:        true
 #services.LArG4Parameters.VisualizationEnergyCut:    1e-9 # GeV
 
+services.DetectorPropertiesService:    @local::protodunesp_detproperties
+services.DetectorPropertiesService.GetHVDriftfromSamweb:           false
+services.DetectorPropertiesService.GetReadOutWindowSizefromSamweb: false
+services.DetectorPropertiesService.UseRunDependentTemperature:     false
+services.RawDigitPrepService.ToolNames: @local::pdsim_dataprep_tools_wirecell
+
 physics.producers.tpcrawdecoder.wcls_main.structs.DL: 4.0
 physics.producers.tpcrawdecoder.wcls_main.structs.DT: 8.8
 physics.producers.tpcrawdecoder.wcls_main.structs.lifetime: 35.0
 physics.producers.tpcrawdecoder.wcls_main.structs.driftSpeed:   1.565
 
-physics.producers.wclsnfsp.wcls_main.params.reality:    "sim"
+physics.producers.caldata.DigitLabel:                       "tpcrawdecoder:daq" 
+physics.producers.caldata.WireName:                         "dataprep" 
+
+physics.producers.wclsdatasp.wcls_main.params.reality:    "sim"
