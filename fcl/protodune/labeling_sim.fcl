@@ -88,7 +88,7 @@ physics:
         IonAndScint:    @local::protodune_ionandscint
         PDFastSim:      @local::protodune_pdfastsim_pvs
         tpcrawdecoder:  @local::wirecell_protodunespmc
-        wclsdatasp:     @local::protodunespdata_wctsp
+        wclsnfsp:       @local::protodunespdata_nfsp
         opdigi:         @local::protodune_opdigi_refactor
         crt:            @local::CRTSimRefac_standard
         rns:            { module_type: "RandomNumberSaver" }
@@ -98,18 +98,18 @@ physics:
     #filters reject all following items.  see lines starting physics.producers below
     simulate: 
     [
-        Ar39,
-        Ar42,
-        Kr85,
-        Rn222,
-        Cosmics,
-        #HEPevt,
-        PNS, 
+        #Ar39,
+        #Ar42,
+        #Kr85,
+        #Rn222,
+        #Cosmics,
+        HEPevt,
+        #PNS, 
         largeant, 
         IonAndScint, 
         #PDFastSim,
         tpcrawdecoder,
-        wclsdatasp,
+        wclsnfsp,
         #opdigi,
         #crt,
         rns
@@ -143,8 +143,8 @@ outputs:
 #block and put it in the trigger_paths then you need to put a SelectEvents: {SelectEvents: [XXX]}
 #entry in the output stream you want those to go to, where XXX is the label of the filter module(s)
 
-#physics.producers.HEPevt.InputFileName:     "../../inputs/protodune/labeling_sim.dat"
-#physics.producers.HEPevt.maxEvents:         1
+physics.producers.HEPevt.InputFileName:     "../../inputs/protodune/labeling_sim.dat"
+physics.producers.HEPevt.maxEvents:         1
 physics.producers.PNS.InputFileName:        "../../inputs/protodune/protodune_10_1450_0.dat"
 physics.producers.PNS.maxEvents:            1
 
@@ -172,7 +172,9 @@ services.LArG4Parameters.VisualizeNeutrals:         true
 services.LArG4Parameters.KeepTransportation:        true
 #services.LArG4Parameters.VisualizationEnergyCut:    1e-9 # GeV
 
-# physics.producers.tpcrawdecoder.wcls_main.structs.DL: 4.0
-# physics.producers.tpcrawdecoder.wcls_main.structs.DT: 8.8
-# physics.producers.tpcrawdecoder.wcls_main.structs.lifetime: 35.0
-# physics.producers.tpcrawdecoder.wcls_main.structs.driftSpeed:   1.60563
+physics.producers.tpcrawdecoder.wcls_main.structs.DL: 4.0
+physics.producers.tpcrawdecoder.wcls_main.structs.DT: 8.8
+physics.producers.tpcrawdecoder.wcls_main.structs.lifetime: 35.0
+physics.producers.tpcrawdecoder.wcls_main.structs.driftSpeed:   1.565
+
+physics.producers.wclsnfsp.wcls_main.params.reality:    "sim"
