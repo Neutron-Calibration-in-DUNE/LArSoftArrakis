@@ -20,11 +20,18 @@ MONO_E_NEUTRON      = .942065
 # magnitude for protoDUNE run 1 DDG study
 P_MAG_PROTODUNE_DDG = 0.0685863
 # x position for protoDUNE run 1 DDG study
-X_POS_PROTODUNE_DDG = 355
+X_POS_PROTODUNE_DDG = 355 #cm
 # y position for protoDUNE run 1 DDG study
-Y_POS_PROTODUNE_DDG = 630
+Y_POS_PROTODUNE_DDG = 630 #cm
 # z position for protoDUNE run 1 DDG study
-Z_POS_PROTODUNE_DDG = 60
+Z_POS_PROTODUNE_DDG = 60 #cm
+
+# x position for protoDUNE run 1 DDG study
+X_POS_DUNE10kt_1x2x6_DDG = 600 #cm
+# y position for DUNE10kt_1x2x6 run 1 DDG study
+Y_POS_DUNE10kt_1x2x6_DDG = 700 #cm
+# z position for DUNE10kt_1x2x6 run 1 DDG study
+Z_POS_DUNE10kt_1x2x6_DDG = 2910 #cm
 
 def sample_spherical_unit(
     num_events:         int,
@@ -126,11 +133,11 @@ if __name__ == "__main__":
     # (same as the settings for protoDUNE)
     momentum_magnitude = 0.0685863
     # x position for initial FDSP study
-    x_pos = 0
+    x_pos = X_POS_DUNE10kt_1x2x6_DDG
     # y position for initial FDSP study
-    y_pos = 0
+    y_pos = Y_POS_DUNE10kt_1x2x6_DDG
     # z position for initial FDSP study
-    z_pos = 0
+    z_pos = Z_POS_DUNE10kt_1x2x6_DDG
     # number of events to generate
     num_events = 10
     # number of neutrons to generate per event
