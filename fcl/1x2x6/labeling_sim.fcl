@@ -1,7 +1,8 @@
 #include "Arrakis.fcl"
+#include "genie_dune.fcl"
+#include "MUSUN.fcl"
 #include "simulationservices_dune.fcl"
 #include "services_dune.fcl"
-#include "services_refactored_pdune.fcl"
 #include "singles_dune.fcl"
 #include "textfilegen.fcl"
 #include "corsika_protodune.fcl"
@@ -9,14 +10,10 @@
 #include "geometry_dune.fcl"
 #include "LArG4_dune.fcl"
 #include "IonAndScint_dune.fcl"
-#include "PDFastSim_dune.fcl"
 #include "wirecell_dune.fcl"
-#include "opticaldetectormodules_dune.fcl"
-#include "CRT.fcl"
 #include "detsim_dune10kt_wirecell_refactored.fcl"
 #include "tools_dune.fcl"
-#include "genie_dune.fcl"
-#include "MUSUN.fcl"
+
 
 process_name: arrakis_1x2x6
 
