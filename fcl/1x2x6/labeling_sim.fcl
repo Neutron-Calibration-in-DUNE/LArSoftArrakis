@@ -106,6 +106,7 @@ physics:
         Kr85,
         Rn222,
         Cosmics,
+        Beam,
         #HEPevt,
         #PNS, 
         largeant, 
