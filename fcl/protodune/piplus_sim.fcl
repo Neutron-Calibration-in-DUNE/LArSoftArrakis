@@ -202,3 +202,4 @@ physics.producers.tpcrawdecoder.wcls_main.structs.driftSpeed:   1.565
 # physics.producers.wclsdatasp.wcls_main.params.reality:    "sim"
 
 physics.analyzers.ana.ProcessType:   "simulation"
+physics.analyzers.ana.ProcessOpDetWaveforms:    false
