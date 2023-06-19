@@ -59,6 +59,12 @@ cp $LOCAL_LARSOFT_DIR/geometry/geometry_dune.fcl $MRB_SOURCE/dunecore/dunecore/G
 # set up arrakis
 cd $MRB_SOURCE/duneana/
 git clone https://github.com/Neutron-Calibration-in-DUNE/Arrakis
+cd Arrakis
+# checkout the tagged version for this version of LArsoft
+# TODO: should add a check for the tag
+git checkout $LARSOFT_VERSION -b $LARSOFT_VERSION
+
+cd $MRB_SOURCE/duneana/
 sed -i '$ a add_subdirectory(Arrakis)' CMakeLists.txt
 
 #------------------Installation and ninja-----------#
