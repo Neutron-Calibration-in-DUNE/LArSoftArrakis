@@ -41,10 +41,16 @@ source localProducts*/setup
 cd $MRB_SOURCE
 # here we check out the packages we intend to modify
 # e.g. duneana, where Arrakis lives
+mrb g dunecore@$DUNE_VERSION
 mrb g duneana@$DUNE_VERSION
 
 # cleanly add local copy of duneana to the CMakeLists.txt file for building
 mrb uc
+
+# replace the geometry_dune.fcl file before building
+# TODO: create a new fhicl file w/ our changes to avoid breaking
+#       anything else that depends on this
+cp $LOCAL_LARSOFT_DIR/geometry/geometry_dune.fcl $MRB_SOURCE/dunecore/dunecore/Geometry/
 
 #------------------Custom code part-----------------#
 # here we put any special code that needs to
@@ -69,6 +75,5 @@ CUSTOM_FHICL_PATH="$LOCAL_LARSOFT_DIR/fcl/"
 export FW_SEARCH_PATH="$FW_SEARCH_PATH:$CUSTOM_SEARCH_PATH"
 export FHICL_FILE_PATH="$FHICL_FILE_PATH:$CUSTOM_FHICL_PATH"
 
-#cp $LOCAL_LARSOFT_DIR/geometry/geometry_dune.fcl $MRB_INSTALL/dunecore/$DUNE_VERSION/fcl/
 
 cd $LOCAL_LARSOFT_DIR
