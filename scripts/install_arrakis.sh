@@ -27,7 +27,11 @@ QUALS=e20:prof
 #--------------------Setup LArSoft------------------#
 source /cvmfs/dune.opensciencegrid.org/products/dune/setup_dune.sh
 setup larsoft $LARSOFT_VERSION -q $QUALS
-setup ninja
+
+#----------------Setup everything else we need-----------------#
+# These packages will setup all of their dependencies as well
+# eg. setting up dune-sw will set up duneana and dunedataprep as well
+setup dunesw $DUNE_VERSION -q $QUALS
 
 #--------------------Create new development---------#
 mrb newDev
@@ -35,21 +39,12 @@ source localProducts*/setup
 
 #-----------------Specifying packages---------------#
 cd $MRB_SOURCE
-# here we specify the packages we need
-# e.g. 
-# "mrb g larsoft@<version>"
-# "mrb g larsim@<version>"
-mrb g dunecore@$DUNE_VERSION
-mrb g duneopdet@$DUNE_VERSION
-mrb g dunesim@$DUNE_VERSION
-mrb g dunecalib@$DUNE_VERSION
-mrb g duneprototypes@$DUNE_VERSION
-mrb g dunedataprep@$DUNE_VERSION
-mrb g dunereco@$DUNE_VERSION
+# here we check out the packages we intend to modify
+# e.g. duneana, where Arrakis lives
 mrb g duneana@$DUNE_VERSION
-mrb g duneexamples@$DUNE_VERSION
-mrb g protoduneana@$DUNE_VERSION
-mrb g dunesw@$DUNE_VERSION
+
+# cleanly add local copy of duneana to the CMakeLists.txt file for building
+mrb uc
 
 #------------------Custom code part-----------------#
 # here we put any special code that needs to
@@ -57,7 +52,7 @@ mrb g dunesw@$DUNE_VERSION
 
 # set up arrakis
 cd $MRB_SOURCE/duneana/
-git clone https://github.com/UC-Davis-Machine-Learning/Arrakis
+git clone https://github.com/Neutron-Calibration-in-DUNE/Arrakis
 sed -i '$ a add_subdirectory(Arrakis)' CMakeLists.txt
 
 #------------------Installation and ninja-----------#
