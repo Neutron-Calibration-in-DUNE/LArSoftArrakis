@@ -20,8 +20,8 @@ cd $INSTALL_DIRECTORY
 
 #--------------------Versioning---------------------#
 # specify the version of the larsoft packages.
-LARSOFT_VERSION=v09_49_00
-DUNE_VERSION=v09_49_00d00
+LARSOFT_VERSION=v09_75_00
+DUNE_VERSION=v09_75_00d00
 QUALS=e20:prof
 
 #--------------------Setup LArSoft------------------#
