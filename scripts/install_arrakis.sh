@@ -47,10 +47,21 @@ mrb g duneana@$DUNE_VERSION
 # cleanly add local copy of duneana to the CMakeLists.txt file for building
 mrb uc
 
-# replace the geometry_dune.fcl file before building
-# TODO: create a new fhicl file w/ our changes to avoid breaking
-#       anything else that depends on this
-cp $LOCAL_LARSOFT_DIR/geometry/geometry_dune.fcl $MRB_SOURCE/dunecore/dunecore/Geometry/
+# Edit the geometry_dune.fcl file before building
+DUNE_GEOMETRY_FHICL=$MRB_SOURCE/dunecore/dunecore/Geometry/geometry_dune.fcl
+# Search for and delete the line containing END_PROLOG. This should be
+# at or near the end of the file.
+sed -i '/END_PROLOG/d'                                            $DUNE_GEOMETRY_FHICL
+# Add the ddg geometry info
+sed -i '$ a\# DDG geometry for Protodune-SP'                      $DUNE_GEOMETRY_FHICL
+sed -i '$ a\protodunev7_ddg_geo:         @local::protodunev7_geo' $DUNE_GEOMETRY_FHICL
+sed -i '$ a\protodunev7_ddg_geo.Name:    "protodunev7ddg"'        $DUNE_GEOMETRY_FHICL
+sed -i '$ a\protodunev7_ddg_geo.GDML:    "protodune_v7_ddg.gdml"' $DUNE_GEOMETRY_FHICL
+sed -i '$ a\protodunev7_ddg_geo.ROOT:    "protodune_v7_ddg.gdml"' $DUNE_GEOMETRY_FHICL
+# Add the END_PROLOG back in
+sed -i -e '$ a\\'                                                 $DUNE_GEOMETRY_FHICL
+sed -i '$ a\END_PROLOG'                                           $DUNE_GEOMETRY_FHICL
+
 
 #------------------Custom code part-----------------#
 # here we put any special code that needs to
