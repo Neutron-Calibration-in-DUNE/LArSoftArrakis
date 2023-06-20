@@ -27,6 +27,7 @@ QUALS=e20:prof
 #--------------------Setup LArSoft------------------#
 source /cvmfs/dune.opensciencegrid.org/products/dune/setup_dune.sh
 setup larsoft $LARSOFT_VERSION -q $QUALS
+setup dunesw $DUNE_VERSION -q $QUALS
 cd $INSTALL_DIRECTORY
 source localProducts*/setup
 
