@@ -37,13 +37,13 @@ if __name__ == "__main__":
     #energy = .942065
     # (same as the settings for protoDUNE)
     
-    x_pos = x_center       
-    y_pos = y_center
-    z_pos = z_center     
+    x_pos = x_ddg
+    y_pos = y_ddg
+    z_pos = z_ddg
     # number of events to generate
-    num_events = 25
+    num_events = 10
     # number of neutrons to generate per event
-    num_neutrons = 250
+    num_neutrons = 1450
     # output file name
     num_files = 1
     
