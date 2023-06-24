@@ -20,21 +20,16 @@ cd $INSTALL_DIRECTORY
 
 #--------------------Versioning---------------------#
 # specify the version of the larsoft packages.
-LARSOFT_VERSION=v09_49_00
-DUNE_VERSION=v09_49_00d00
+LARSOFT_VERSION=v09_75_00
+DUNE_VERSION=v09_75_00d00
 QUALS=e20:prof
 
 #--------------------Setup LArSoft------------------#
 source /cvmfs/dune.opensciencegrid.org/products/dune/setup_dune.sh
 setup larsoft $LARSOFT_VERSION -q $QUALS
-setup ninja
+setup dunesw $DUNE_VERSION -q $QUALS
 cd $INSTALL_DIRECTORY
 source localProducts*/setup
-
-cd $MRB_SOURCE/duneana/Arrakis
-git pull
-
-mrbslp
 
 #--------------------Custom updating code-----------#
 # here we specify how we want to update our custom
@@ -42,8 +37,15 @@ mrbslp
 # a custom module:
 #   $ cd $MRB_SOURCE/larsoft/MyCustomModule"
 #   $ git pull
+cd $MRB_SOURCE/duneana/Arrakis
+git checkout lar975
+git pull
+
 
 #--------------------Rebuild------------------------#
+cd $MRB_BUILDDIR
+mrbsetenv
+
 ninja -C $MRB_BUILDDIR -j 16 install
 
 #------------------Custom search and fcl------------#
@@ -54,7 +56,5 @@ CUSTOM_FHICL_PATH="$LOCAL_LARSOFT_DIR/fcl/"
 
 export FW_SEARCH_PATH="$FW_SEARCH_PATH:$CUSTOM_SEARCH_PATH"
 export FHICL_FILE_PATH="$FHICL_FILE_PATH:$CUSTOM_FHICL_PATH"
-
-cp $LOCAL_LARSOFT_DIR/geometry/geometry_dune.fcl $MRB_INSTALL/dunecore/$DUNE_VERSION/fcl/
 
 cd $LOCAL_LARSOFT_DIR
