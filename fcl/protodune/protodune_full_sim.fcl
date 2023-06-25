@@ -1,0 +1,160 @@
+#include "simulationservices_dune.fcl"
+#include "services_dune.fcl"
+#include "services_refactored_pdune.fcl"
+#include "singles_dune.fcl"
+#include "textfilegen.fcl"
+#include "corsika_protodune.fcl"
+#include "dune_radiological_model.fcl"
+#include "geometry_dune.fcl"
+#include "LArG4_dune.fcl"
+#include "IonAndScint_dune.fcl"
+#include "PDFastSim_dune.fcl"
+#include "wirecell_dune.fcl"
+#include "opticaldetectormodules_dune.fcl"
+#include "CRT.fcl"
+#include "detsim_dune10kt_wirecell_refactored.fcl"
+#include "tools_dune.fcl"
+
+process_name: protodunefullsim
+
+services:
+{
+    # Load the service that manages root files for histograms.
+    TFileService:             { fileName: "protodune_full_sim.root" }
+    TimeTracker:              @local::dune_time_tracker
+    MemoryTracker:            @local::dune_memory_tracker
+    RandomNumberGenerator:    {} #ART native random number generator
+    FileCatalogMetadata:      @local::art_file_catalog_mc
+    @table::protodune_larg4_services
+    @table::protodune_refactored_simulation_services 
+    Geometry:                 @local::protodunev7_ddg_geo
+    IFDH: {}
+    
+    PhysicsList:
+    {
+        PhysicsListName:                    "MyQGSP_BERT_ArHP"
+        DumpList:                           true
+        enableNeutronLimit:                 false
+        NeutronTimeLimit:                   0.0
+        NeutronKinELimit:                   0.0
+        enableStepLimit:                    true
+        enableOptical:                      false
+        enableCerenkov:                     false
+        CerenkovStackPhotons:               false
+        CerenkovMaxNumPhotons:              100
+        CerenkovMaxBetaChange:              10.0
+        enableScintillation:                false
+        ScintillationStackPhotons:          false
+        ScintillationByParticleType:        false
+        ScintillationTrackInfo:             false
+        ScintillationTrackSecondariesFirst: false
+        enableAbsorption:                   false
+        enableRayleigh:                     false
+        enableMieHG:                        false
+        enableBoundary:                     false
+        enableWLS:                          false
+        BoundaryInvokeSD:                   false
+        Verbosity:                          1
+        WLSProfile:                         delta
+    }
+}
+
+#Start each new event with an empty event.
+source:
+{
+    module_type: EmptyEvent
+    timestampPlugin: { plugin_type: "GeneratedEventTimestamp" }
+    maxEvents:   10
+    firstRun:    1           # Run number to use for this file
+    firstEvent:  1           # number of first event in the file
+}
+
+# Define and configure some modules to do work on each event.
+# First modules are defined; they are scheduled later.
+# Modules are grouped by type.
+physics:
+{
+    producers:
+    {
+        Ar39:           @local::protodunesp_39ar
+        Ar42:           @local::protodunesp_42ar
+        Kr85:           @local::protodunesp_85kr
+        Rn222:          @local::protodunesp_222rn
+        Cosmics:        @local::protodune_corsika_cmc
+        HEPevt:         @local::standard_textfilegen
+        PNS:            @local::standard_textfilegen
+        largeant:       @local::protodune_larg4
+        IonAndScint:    @local::protodune_ionandscint
+        PDFastSim:      @local::protodune_pdfastsim_pvs
+        tpcrawdecoder:  @local::wirecell_protodunespmc
+        opdigi:         @local::protodune_opdigi_refactor
+        rns:            { module_type: "RandomNumberSaver" }
+    }
+    simulate: 
+    [
+        Ar39,
+        Ar42,
+        Kr85,
+        Rn222,
+        Cosmics,
+        HEPevt,
+        PNS, 
+        largeant, 
+        IonAndScint, 
+        PDFastSim,
+        tpcrawdecoder,
+        opdigi,
+        rns
+    ]
+
+    stream1:        [ out1 ]
+    trigger_paths:  [ simulate ]
+    end_paths:      [ stream1 ]
+
+}
+
+outputs:
+{
+    out1:
+    {
+        module_type:        RootOutput
+        fileName:           "protodune_full_sim.root"
+        dataTier:           "detector-simulated"
+        compressionLevel:   1
+        fastCloning:        true
+        outputCommands:     [ "keep *" ]
+    }
+}
+physics.producers.HEPevt.InputFileName:     ""
+physics.producers.HEPevt.maxEvents:         1
+physics.producers.PNS.InputFileName:        ""
+physics.producers.PNS.maxEvents:            10
+
+physics.producers.largeant.ChargeRecoveryMargin: 2.5 # cm
+services.LArG4Parameters.UseCustomPhysics:      true
+services.LArG4Parameters.EnabledPhysics: [ "LowEnergyEm",
+                                           "FastOptical",
+                                           "SynchrotronAndGN",
+                                           "Ion",
+                                           "HadronHP",
+                                           "Decay",
+                                           "HadronElastic",
+                                           "Stopping" ]
+services.LArG4Parameters.ModifyProtonCut:   true
+services.LArG4Parameters.NewProtonCut:      0.0
+services.LArG4Parameters.FillSimEnergyDeposits:     true
+services.LArG4Parameters.KeepEMShowerDaughters:     true
+services.LArG4Parameters.ParticleKineticEnergyCut:  0.0 # GeV
+services.LArG4Parameters.StoreTrajectories:         true
+services.LArG4Parameters.SparsifyTrajectories:      false
+services.LArG4Parameters.VisualizeNeutrals:         true
+services.LArG4Parameters.KeepTransportation:        true
+
+services.DetectorPropertiesService:    @local::protodunesp_detproperties
+services.DetectorPropertiesService.GetHVDriftfromSamweb:           false
+services.DetectorPropertiesService.GetReadOutWindowSizefromSamweb: false
+services.DetectorPropertiesService.UseRunDependentTemperature:     false
+physics.producers.tpcrawdecoder.wcls_main.structs.DL: 4.0
+physics.producers.tpcrawdecoder.wcls_main.structs.DT: 8.8
+physics.producers.tpcrawdecoder.wcls_main.structs.lifetime: 35.0
+physics.producers.tpcrawdecoder.wcls_main.structs.driftSpeed:   1.565
