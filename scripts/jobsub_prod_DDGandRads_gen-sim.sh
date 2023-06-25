@@ -40,7 +40,7 @@ echo "pwd is " `pwd`
 
 ####################################################################################################
 PARTICLE_TYPE="pnsNeutrons"
-EVENTS_PER_RUN=5
+EVENTS_PER_RUN=1
 BASE_NAME="prod_pns_neutrons_Arrakis"
 DESTINATION=scratch
 GEN_SCRIPT=generate_neutrons_protodune.py #creates the .dat files
@@ -130,8 +130,11 @@ if [ $STANDALONE -ne 1 ]; then
     #------------------Custom search and fcl------------#
     # here we specify any custom search paths and fcl
     # file paths that we want our installation to know about.
-    CUSTOM_FHICL_PATH="$LOCAL_LARSOFT_DIR/fcl/"
+    CUSTOM_SEARCH_PATH="${INPUT_TAR_DIR_LOCAL}/geometry/"
+    CUSTOM_FHICL_PATH="${INPUT_TAR_DIR_LOCAL}/fcl/"
+
     export FHICL_FILE_PATH="$FHICL_FILE_PATH:$CUSTOM_FHICL_PATH"
+    export FW_SEARCH_PATH="$FW_SEARCH_PATH:$CUSTOM_SEARCH_PATH" # -- don't think we really need this
 
     cd $LOCAL_LARSOFT_DIR
     ##<--ifdh mkdir inputs
@@ -295,7 +298,7 @@ cd ${TEMPDIR}
 cp ${INPUT_TAR_DIR_LOCAL}/fcl/protodune/${SIM_FHICL} ./
 
 # -- override the input PNS file w/ the locally produced one
-sed -i "\$aphysics.producers.PNS.InputFileName:   pns_input_$CLUSTER.$PROCESS.dat" ${SIM_FHICL}
+sed -i "\$aphysics.producers.PNS.InputFileName:   \"pns_input_$CLUSTER.$PROCESS.dat\"" ${SIM_FHICL}
 
 ifdh ls `pwd` >> ${TEMPDIR}/job_output_${CLUSTER}.${PROCESS}.log 2>> ${TEMPDIR}/job_output_${CLUSTER}.${PROCESS}.err
 
