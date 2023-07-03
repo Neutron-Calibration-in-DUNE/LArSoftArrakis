@@ -40,11 +40,12 @@ echo "pwd is " `pwd`
 
 ####################################################################################################
 PARTICLE_TYPE="pnsNeutrons"
-EVENTS_PER_RUN=1
+EVENTS_PER_RUN=10
 BASE_NAME="prod_pns_neutrons_Arrakis"
 DESTINATION=scratch
 GEN_SCRIPT=generate_neutrons_protodune.py #creates the .dat files
-SIM_FHICL=labeling_sim.fcl
+#SIM_FHICL=labeling_sim.fcl
+SIM_FHICL=protodune_full_sim_arrakis.fcl
 #destination is to choose between scratch and persistent
 
 JOB_NAME=${BASE_NAME}
@@ -302,11 +303,16 @@ sed -i "\$aphysics.producers.PNS.InputFileName:   \"pns_input_$CLUSTER.$PROCESS.
 
 ifdh ls `pwd` >> ${TEMPDIR}/job_output_${CLUSTER}.${PROCESS}.log 2>> ${TEMPDIR}/job_output_${CLUSTER}.${PROCESS}.err
 
-cmd="lar -c ${SIM_FHICL} -n ${EVENTS_PER_RUN} -T ${PARTICLE_TYPE}_output_${STAGE}_file_${CLUSTER}.${PROCESS}.root >> job_output_${CLUSTER}.${PROCESS}.log 2>> job_output_${CLUSTER}.${PROCESS}.err"
-ifdh ls `pwd` >> job_output_${CLUSTER}.${PROCESS}.log 2>> job_output_${CLUSTER}.${PROCESS}.err
-#produce output files for current stage
-echo $cmd >> job_output_${CLUSTER}.${PROCESS}.log 2>> job_output_${CLUSTER}.${PROCESS}.err
+cmd="lar -c ${SIM_FHICL} -n ${EVENTS_PER_RUN} -T ${PARTICLE_TYPE}_output_${STAGE}_file_${CLUSTER}.${PROCESS}.root >> ${TEMPDIR}/job_output_${CLUSTER}.${PROCESS}.log 2>> ${TEMPDIR}/job_output_${CLUSTER}.${PROCESS}.err"
+echo "Working Dir contents: " >> ${TEMPDIR}/job_output_${CLUSTER}.${PROCESS}.log 2>> ${TEMPDIR}/job_output_${CLUSTER}.${PROCESS}.err
+ifdh ls ./ >> ${TEMPDIR}/job_output_${CLUSTER}.${PROCESS}.log 2>> ${TEMPDIR}/job_output_${CLUSTER}.${PROCESS}.err
+
+echo $cmd >> ${TEMPDIR}/job_output_${CLUSTER}.${PROCESS}.log 2>> ${TEMPDIR}/job_output_${CLUSTER}.${PROCESS}.err
 eval $cmd
+
+#produce output files for current stage
+#echo $cmd >> ${TEMPDIR}/job_output_${CLUSTER}.${PROCESS}.log 2>> ${TEMPDIR}/job_output_${CLUSTER}.${PROCESS}.err
+#eval $cmd
 
 echo "Exiting ${STAGE} stage" >> job_output_${CLUSTER}.${PROCESS}.log 2>> job_output_${CLUSTER}.${PROCESS}.err
 
@@ -342,7 +348,7 @@ for step in sim gen ; do
   		exit 74
   	else
       if [ ${step} = sim ]; then
-  		  #ifdh cp -D ${PARTICLE_TYPE}_output_${step}_file_${CLUSTER}.${PROCESS}.root ${BASE_DIR}/${CLUSTER}/${step}
+  		  ifdh cp -D ${TEMPDIR}/${PARTICLE_TYPE}_output_${step}_file_${CLUSTER}.${PROCESS}.root ${BASE_DIR}/${CLUSTER}/${step}
         ifdh cp -D ${TEMPDIR}/job_output_${CLUSTER}.${PROCESS}.log ${TEMPDIR}/job_output_${CLUSTER}.${PROCESS}.err ${BASE_DIR}/${CLUSTER}/${step}/
       elif [ ${step} = gen ]; then 
         ifdh cp -D ${TEMPDIR}/pns_input_${CLUSTER}.${PROCESS}.dat ${BASE_DIR}/${CLUSTER}/${step}/
