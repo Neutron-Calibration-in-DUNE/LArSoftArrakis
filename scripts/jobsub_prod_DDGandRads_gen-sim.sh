@@ -44,7 +44,9 @@ echo "pwd is " `pwd`
 ####################################################################################################
 PARTICLE_TYPE="pnsNeutrons"
 EVENTS_PER_RUN=10
-BASE_NAME="prod_pns_neutrons_Arrakis_v2"
+NUMBER_OF_RUNS=1
+NEUTRONS_PER_EVENT=1450
+BASE_NAME="prod_pns_neutrons_Arrakis_v3"
 DESTINATION=scratch
 GEN_SCRIPT=generate_neutrons_protodune.py #creates the .dat files
 SIM_FHICL=protodune_full_sim_arrakis.fcl
@@ -185,7 +187,7 @@ echo "Python Script Dir contents:" >> ${TEMPDIR}/${LOG_FILE} 2>> ${TEMPDIR}/${ER
 ifdh ls $PYTHON_SCRIPT_DIR >> ${TEMPDIR}/${LOG_FILE} 2>> ${TEMPDIR}/${ERR_FILE}
 
 # -- set up the python environment w/ the needed dependencies
-cmd="python ${GEN_SCRIPT} pns_input_${CLUSTER}.${PROCESS}.dat ${TEMPDIR}"
+cmd="python ${GEN_SCRIPT} --num_events ${EVENTS_PER_RUN} --num_neutrons ${NEUTRONS_PER_EVENT} --output_file pns_input_${CLUSTER}.${PROCESS} --output_dir ${TEMPDIR}/"
 source ${INPUT_TAR_DIR_LOCAL}/generator/protodune/bin/activate >> ${TEMPDIR}/${LOG_FILE} 2>> ${TEMPDIR}/${ERR_FILE}
 
 ifdh ls `pwd` >> ${TEMPDIR}/${LOG_FILE} 2>> ${TEMPDIR}/${ERR_FILE}
@@ -206,7 +208,8 @@ cd ${TEMPDIR}
 cp ${INPUT_TAR_DIR_LOCAL}/fcl/protodune/${SIM_FHICL} ./
 
 # -- override the input PNS file w/ the locally produced one
-sed -i "\$aphysics.producers.PNS.InputFileName:   \"pns_input_$CLUSTER.$PROCESS.dat\"" ${SIM_FHICL}
+# -- NOTE: Assuming there will only be one input file per job at the moment
+sed -i "\$aphysics.producers.PNS.InputFileName:   \"pns_input_${CLUSTER}.${PROCESS}_${EVENTS_PER_RUN}_${NEUTRONS_PER_EVENT}_0.dat\"" ${SIM_FHICL}
 
 ifdh ls `pwd` >> ${TEMPDIR}/${LOG_FILE} 2>> ${TEMPDIR}/${ERR_FILE}
 

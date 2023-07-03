@@ -107,10 +107,3 @@ if __name__ == "__main__":
             plot_momentum_distribution,
             check_momentum_magnitude
         )
-
-if __name__ == "__main__":
-
-    output_dir = "../../inputs/protodune/"
-
-    main()
-
