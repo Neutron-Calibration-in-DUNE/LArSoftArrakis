@@ -209,7 +209,8 @@ cp ${INPUT_TAR_DIR_LOCAL}/fcl/protodune/${SIM_FHICL} ./
 
 # -- override the input PNS file w/ the locally produced one
 # -- NOTE: Assuming there will only be one input file per job at the moment
-sed -i "\$aphysics.producers.PNS.InputFileName:   \"pns_input_${CLUSTER}.${PROCESS}_${EVENTS_PER_RUN}_${NEUTRONS_PER_EVENT}_0.dat\"" ${SIM_FHICL}
+INPUT_NAME="pns_input_${CLUSTER}.${PROCESS}_${EVENTS_PER_RUN}_${NEUTRONS_PER_EVENT}_0.dat"
+sed -i "\$aphysics.producers.PNS.InputFileName:   \"${INPUT_NAME}\"" ${SIM_FHICL}
 
 ifdh ls `pwd` >> ${TEMPDIR}/${LOG_FILE} 2>> ${TEMPDIR}/${ERR_FILE}
 
@@ -257,7 +258,7 @@ for stage in sim gen ; do
   		  ifdh cp -D ${PARTICLE_TYPE}_output_${stage}_file_${CLUSTER}.${PROCESS}.root ${BASE_DIR}/${CLUSTER}/${stage}
         ifdh cp -D ${LOG_FILE} ${ERR_FILE} ${BASE_DIR}/${CLUSTER}/${stage}/
       elif [ ${stage} = gen ]; then 
-        ifdh cp -D ${TEMPDIR}/pns_input_${CLUSTER}.${PROCESS}.dat ${BASE_DIR}/${CLUSTER}/${stage}/
+        ifdh cp -D ${INPUT_NAME} ${BASE_DIR}/${CLUSTER}/${stage}/
       fi
 
   		if [ $? -ne 0 ]; then
