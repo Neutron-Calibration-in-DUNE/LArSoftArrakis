@@ -23,8 +23,6 @@ y_ddg = 630
 z_ddg = 60
 
 output_dir = "../../inputs/protodune/"
-if not os.path.isdir(output_dir):
-    os.makedirs(output_dir)
 
 parser = argparse.ArgumentParser(description='PNS generator')
 parser.add_argument(
@@ -109,4 +107,10 @@ if __name__ == "__main__":
             plot_momentum_distribution,
             check_momentum_magnitude
         )
+
+if __name__ == "__main__":
+
+    output_dir = "../../inputs/protodune/"
+
+    main()
 

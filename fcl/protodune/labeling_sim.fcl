@@ -144,7 +144,7 @@ outputs:
     out1:
     {
         module_type:        RootOutput
-        fileName:           "outputs/labeling_sim_arrakis.root"
+        fileName:           "labeling_sim_arrakis.root"
         dataTier:           "detector-simulated"
         compressionLevel:   1
         fastCloning:        true
