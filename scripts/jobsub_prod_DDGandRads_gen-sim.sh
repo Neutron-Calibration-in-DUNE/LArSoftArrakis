@@ -43,7 +43,7 @@ echo "pwd is " `pwd`
 
 ####################################################################################################
 PARTICLE_TYPE="pnsNeutrons"
-EVENTS_PER_RUN=10
+EVENTS_PER_RUN=1
 NUMBER_OF_RUNS=1
 NEUTRONS_PER_EVENT=1450
 BASE_NAME="prod_pns_neutrons_Arrakis_v3"
@@ -212,13 +212,13 @@ cp ${INPUT_TAR_DIR_LOCAL}/fcl/protodune/${SIM_FHICL} ./
 INPUT_NAME="pns_input_${CLUSTER}.${PROCESS}_${EVENTS_PER_RUN}_${NEUTRONS_PER_EVENT}_0.dat"
 sed -i "\$aphysics.producers.PNS.InputFileName:   \"${INPUT_NAME}\"" ${SIM_FHICL}
 
-ifdh ls `pwd` >> ${TEMPDIR}/${LOG_FILE} 2>> ${TEMPDIR}/${ERR_FILE}
+ifdh ls `pwd` >> ${LOG_FILE} 2>> ${ERR_FILE}
 
-cmd="lar -c ${SIM_FHICL} -n ${EVENTS_PER_RUN} -T ${PARTICLE_TYPE}_output_${STAGE}_file_${CLUSTER}.${PROCESS}.root >> ${TEMPDIR}/${LOG_FILE} 2>> ${TEMPDIR}/${ERR_FILE}"
-echo "Working Dir contents: " >> ${TEMPDIR}/${LOG_FILE} 2>> ${TEMPDIR}/${ERR_FILE}
-ifdh ls ./ >> ${TEMPDIR}/${LOG_FILE} 2>> ${TEMPDIR}/${ERR_FILE}
+cmd="lar -c ${SIM_FHICL} -n ${EVENTS_PER_RUN} -T ${PARTICLE_TYPE}_output_${STAGE}_file_${CLUSTER}.${PROCESS}.root >> ${LOG_FILE} 2>> ${ERR_FILE}"
+echo "Working Dir contents: " >> ${LOG_FILE} 2>> ${ERR_FILE}
+ifdh ls ./ >> ${LOG_FILE} 2>> ${ERR_FILE}
 
-echo $cmd >> ${TEMPDIR}/${LOG_FILE} 2>> ${TEMPDIR}/${ERR_FILE}
+echo $cmd >> ${LOG_FILE} 2>> ${ERR_FILE}
 eval $cmd
 
 echo "Exiting ${STAGE} stage" >> ${LOG_FILE} 2>> ${ERR_FILE}

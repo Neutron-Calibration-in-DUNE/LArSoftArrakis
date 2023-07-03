@@ -12,7 +12,7 @@ Source your setup first.
 LARSOFT_VERSION="v09_75_00"
 FLAT_QUALS="e20_prof"
 
-tar --exclude '.git' -czf LArSoftArrakis_${LARSOFT_VERSION}.tar.gz ./larsoft/localProducts_larsoft_${LARSOFT_VERSION}_${FLAT_QUALS} ./generator ./fcl ./scripts/setup_arrakis.sh
+tar --exclude '.git' -czf LArSoftArrakis_${LARSOFT_VERSION}.tar.gz ./larsoft/localProducts_larsoft_${LARSOFT_VERSION}_${FLAT_QUALS} ./geometry ./generator ./fcl ./scripts/setup_arrakis.sh
 
 3. Esablish your credentials, including getting a token
 
