@@ -30,8 +30,8 @@ y_center_TPC2 = 303.
 z_center_TPC2 = 115.
 
 output_dir = "../../inputs/protodune/"
-if not os.path.isdir(output_dir):
-    os.makedirs(output_dir)
+#if not os.path.isdir(output_dir):
+#    os.makedirs(output_dir)
 
 parser = argparse.ArgumentParser(description='PNS generator')
 parser.add_argument(

@@ -13,8 +13,8 @@
 #  6) 0.002566 GeV
 ####################################################################################################
 # gamma energy map
-gammaEnergyArray=(0.004745 0.001866 0.0001673 0.0008378 0.0005161 0.003365 0.002566)
-gammaNames=("4.745MeV" "1.866MeV" "0.1673MeV" "0.8378MeV" "0.5161MeV" "3.365MeV" "2.566MeV")
+gammaEnergyArray=(0.004745 0.0011868 0.0001673 0.0008377 0.000516 0.0033655 0.0025661)
+gammaNames=("4.745MeV" "1.1868MeV" "0.1673MeV" "0.8378MeV" "0.516MeV" "3.3655MeV" "2.5661MeV")
 
 
 
@@ -59,10 +59,10 @@ GAMMA_E_INDEX=0
 THIS_GAMMA_E=${gammaEnergyArray[$GAMMA_E_INDEX]}
 THIS_GAMMA_NAME=${gammaNames[$GAMMA_E_INDEX]}
 PARTICLE_TYPE="pnsGammas${THIS_GAMMA_NAME}"
-EVENTS_PER_RUN=100
+EVENTS_PER_RUN=500
 NUMBER_OF_RUNS=1
 GAMMAS_PER_EVENT=1
-BASE_NAME="prod_pns_SingleGammas_Arrakis_${THIS_GAMMA_NAME}_v1"
+BASE_NAME="prod_pns_SingleGammas_Arrakis_${THIS_GAMMA_NAME}_v2"
 DESTINATION=scratch
 GEN_SCRIPT=generate_gammas_protodune.py #creates the .dat files
 SIM_FHICL=protodune_PNS_sim_ONLY_arrakis.fcl

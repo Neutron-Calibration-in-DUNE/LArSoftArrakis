@@ -167,6 +167,8 @@ physics.producers.tpcrawdecoder.wcls_main.structs.DT: 8.8
 physics.producers.tpcrawdecoder.wcls_main.structs.lifetime: 35.0
 physics.producers.tpcrawdecoder.wcls_main.structs.driftSpeed:   1.565
 
-physics.analyzers.ana.ProcessOpDetWaveforms:    false
+physics.analyzers.ana.ProcessOpDetWaveforms:              false
+physics.analyzers.ana.ProcessOpDetBacktrackerRecords:     false
+physics.analyzers.ana.SaveSimulationWrangler:             true
 
 physics.producers.PNS.InputFileName:        "test.dat"
