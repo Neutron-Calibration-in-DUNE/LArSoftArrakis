@@ -1,4 +1,4 @@
 #include "arrakis_test.fcl"
 
 services.TFileService.fileName:             "arrakis_test_anti-tauon.root" 
-physics.producers.HEPevt.InputFileName:     "../../inputs/arrakis_test/arrakis_test_anti-tauon.dat"
+physics.producers.HEPevt.InputFileName:     "../../inputs/arrakis_tests/arrakis_test_anti-tauon.dat"
