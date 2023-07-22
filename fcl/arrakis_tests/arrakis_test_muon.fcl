@@ -109,7 +109,7 @@ outputs:
     out1:
     {
         module_type:        RootOutput
-        fileName:           "arrakis_test_muons.root"
+        fileName:           "arrakis_test_muon.root"
         dataTier:           "detector-simulated"
         compressionLevel:   1
         fastCloning:        true
@@ -117,7 +117,7 @@ outputs:
     }
 }
 
-physics.producers.HEPevt.InputFileName:     "../../inputs/protodune/arrakis_test_muons.dat"
+physics.producers.HEPevt.InputFileName:     "../../inputs/protodune/arrakis_test_muon.dat"
 physics.producers.HEPevt.maxEvents:         10
 
 physics.producers.largeant.ChargeRecoveryMargin: 2.5 # cm
