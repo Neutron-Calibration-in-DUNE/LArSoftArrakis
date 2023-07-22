@@ -8,8 +8,8 @@ import os
 import sys
 import numpy as np
 sys.path.append("../")
-import LArSoftArrakis.generator.hepevt_generator as hepevt_generator
-from LArSoftArrakis.generator.hepevt_generator import *
+import hepevt_generator as hepevt_generator
+from hepevt_generator import *
 import argparse
 
 # ProtoDUNE center 
@@ -29,9 +29,13 @@ if __name__ == "__main__":
     pdgs = [11, -11, 13, -13, 15, -15, 22, 111, 211, -211, 311, 321, -321, 2112, 2212]
     for ii, pdg in enumerate(pdgs):
         hepevt_generator.generate_hepevt(
-            pdg,
-            0.0, 0.0, 1.0,
-            energies,
-            x_center, y_center, z_center,
+            pdg=pdg,
+            px=0.0, 
+            py=0.0, 
+            pz=1.0,
+            energy=energies,
+            x_position=x_center, 
+            y_position=y_center, 
+            z_position=z_center,
             output_file=f'../../inputs/arrakis_tests/arrakis_test_{pdg_map[pdg]}.dat'
         )

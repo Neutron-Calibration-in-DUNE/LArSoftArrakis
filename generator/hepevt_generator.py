@@ -71,6 +71,8 @@ def momentum_mag(
     energy: float,
     mass:   float
 ):
+    if energy**2 < mass**2:
+        return mass
     return np.sqrt(energy**2 - mass**2)
 
 def generate_hepevt(
@@ -90,12 +92,12 @@ def generate_hepevt(
     whose momentum is determined by the energy and mass.
     """
     events = []
-    for i in range(len(energy)):
+    for ii in range(len(energy)):
         # insert event header for HEPevt format
-        events.append([str(i+1) + " 1"])
+        events.append([str(ii+1) + " 1"])
         # compute momentum magnitude
-        momentum_norm = np.sqrt(px*px + py*py * pz*pz)
-        momentum = momentum_mag(energy, pdg_mass[pdg]) / momentum_norm
+        momentum_norm = np.sqrt(px*px + py*py + pz*pz)
+        momentum = momentum_mag(energy[ii], pdg_mass[pdg]) / momentum_norm
 
         hepevt_string = "1 "                        # particle status (final state)
         hepevt_string += str(pdg) + " "             # pdg code
@@ -103,7 +105,7 @@ def generate_hepevt(
         hepevt_string += str(px * momentum) + " "   # px in GeV
         hepevt_string += str(py * momentum) + " "   # py in GeV
         hepevt_string += str(pz * momentum) + " "   # pz in GeV
-        hepevt_string += str(energy) + " "          # total energy (E^2 = m^2 + p^2)
+        hepevt_string += str(energy[ii]) + " "      # total energy (E^2 = m^2 + p^2)
         hepevt_string += str(pdg_mass[pdg]) + " "   # mass in GeV
         hepevt_string += str(x_position) + " "      # x position in G4 coordinates
         hepevt_string += str(y_position) + " "      # y position in G4 coordinates
@@ -113,5 +115,5 @@ def generate_hepevt(
 
     # save output to a file
     with open(output_file,"w") as file:
-        writer = csv.writer(file,delimiter="\t")
+        writer = csv.writer(file, delimiter="\t")
         writer.writerows(events)
