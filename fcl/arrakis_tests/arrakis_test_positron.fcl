@@ -1,0 +1,4 @@
+#include "arrakis_test.fcl"
+
+services.TFileService.fileName:             "arrakis_test_positron.root" 
+physics.producers.HEPevt.InputFileName:     "../../inputs/protodune/arrakis_test_positron.dat"
