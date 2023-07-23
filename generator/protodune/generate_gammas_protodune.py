@@ -8,8 +8,8 @@ import os
 import sys
 import numpy as np
 sys.path.append("../")
-import PNS_generator
-from PNS_generator import *
+import LArSoftArrakis.generator.pns_generator as pns_generator
+from LArSoftArrakis.generator.pns_generator import *
 import gamma_generator
 from gamma_generator import *
 import argparse

@@ -8,8 +8,8 @@ import os
 import sys
 import numpy as np
 sys.path.append("../")
-import PNS_generator
-from PNS_generator import *
+import LArSoftArrakis.generator.pns_generator as pns_generator
+from LArSoftArrakis.generator.pns_generator import *
 import argparse
 
 # ProtoDUNE center 
@@ -95,7 +95,7 @@ if __name__ == "__main__":
     
     for ii in range(num_runs):
         output = f"{output_dir}{output_file}_{num_events}_{num_neutrons}_{ii}.dat"
-        PNS_generator.generate_ddg_neutrons(
+        pns_generator.generate_ddg_neutrons(
             num_events, 
             num_neutrons, 
             momentum_magnitude, 

@@ -34,8 +34,8 @@ if __name__ == "__main__":
             py=0.0, 
             pz=1.0,
             energy=energies,
-            x_position=x_center, 
-            y_position=y_center, 
+            x_position=25, 
+            y_position=25, 
             z_position=z_center,
             output_file=f'../../inputs/arrakis_tests/arrakis_test_{pdg_map[pdg]}.dat'
         )
