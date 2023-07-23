@@ -102,9 +102,9 @@ def generate_hepevt(
         hepevt_string = "1 "                        # particle status (final state)
         hepevt_string += str(pdg) + " "             # pdg code
         hepevt_string += "0 0 0 0 "                 # 1st, 2nd mother and 1st, 2nd daughter
-        hepevt_string += str(px * momentum) + " "   # px in GeV
-        hepevt_string += str(py * momentum) + " "   # py in GeV
-        hepevt_string += str(pz * momentum) + " "   # pz in GeV
+        hepevt_string += str(px) + " "   # px in GeV
+        hepevt_string += str(py) + " "   # py in GeV
+        hepevt_string += str(pz) + " "   # pz in GeV
         hepevt_string += str(energy[ii]) + " "      # total energy (E^2 = m^2 + p^2)
         hepevt_string += str(pdg_mass[pdg]) + " "   # mass in GeV
         hepevt_string += str(x_position) + " "      # x position in G4 coordinates
