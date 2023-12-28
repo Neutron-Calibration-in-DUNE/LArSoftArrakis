@@ -103,7 +103,7 @@ physics:
         PDFastSim:      @local::protodune_pdfastsim_pvs
         tpcrawdecoder:  @local::wirecell_protodunespmc
         opdigi:         @local::protodune_opdigi_refactor
-        caldata:        @local::producer_adcprep
+        caldata:        @local::producer_adcprep_notool 
         gaushit:        @local::dunefd_gaushitfinder
         rns:            { module_type: "RandomNumberSaver" }
     }
