@@ -3,6 +3,7 @@
 #include "services_dune.fcl"
 #include "services_refactored_pdune.fcl"
 #include "singles_dune.fcl"
+#include "hitfindermodules_dune.fcl"
 #include "textfilegen.fcl"
 #include "corsika_protodune.fcl"
 #include "dune_radiological_model.fcl"
@@ -65,9 +66,21 @@ source:
 {
     module_type: EmptyEvent
     timestampPlugin: { plugin_type: "GeneratedEventTimestamp" }
-    maxEvents:   10
+    maxEvents:   1
     firstRun:    1           # Run number to use for this file
     firstEvent:  1           # number of first event in the file
+}
+outputs:
+{
+    out1:
+    {
+        module_type:        RootOutput
+        fileName:           "protodune_full_sim_arrakis_all_data.root"
+        dataTier:           "detector-simulated"
+        compressionLevel:   1
+        fastCloning:        true
+        outputCommands:     [ "keep *" ]
+    }
 }
 
 # Define and configure some modules to do work on each event.
@@ -89,6 +102,7 @@ physics:
         PDFastSim:      @local::protodune_pdfastsim_pvs
         tpcrawdecoder:  @local::wirecell_protodunespmc
         opdigi:         @local::protodune_opdigi_refactor
+        gaushit:        @local::dunefd_gaushitfinder
         rns:            { module_type: "RandomNumberSaver" }
     }
     analyzers:
@@ -98,17 +112,18 @@ physics:
     simulate: 
     [
         Ar39,
-        Ar42,
-        Kr85,
-        Rn222,
-        Cosmics,
-        HEPevt,
+        #Ar42,
+        #Kr85,
+        #Rn222,
+        #Cosmics,
+        #HEPevt,
         PNS, 
         largeant, 
         IonAndScint, 
         PDFastSim,
         tpcrawdecoder,
         opdigi,
+        gaushit,
         rns
     ]
     analysis:  
@@ -116,27 +131,17 @@ physics:
         ana 
     ]
 
-    trigger_paths:  [simulate]
-    end_paths:      [ analysis ]
+    mainout:        [ out1 ]
+    trigger_paths:  [ simulate ]
+    end_paths:      [ analysis, mainout ]
 
 }
 
-outputs:
-{
-    out1:
-    {
-        module_type:        RootOutput
-        fileName:           "protodune_full_sim_arrakis.root"
-        dataTier:           "detector-simulated"
-        compressionLevel:   1
-        fastCloning:        true
-        outputCommands:     [ "keep *" ]
-    }
-}
-physics.producers.HEPevt.InputFileName:     ""
-physics.producers.HEPevt.maxEvents:         1
-physics.producers.PNS.InputFileName:        ""
-physics.producers.PNS.maxEvents:            10
+
+#physics.producers.HEPevt.InputFileName:     ""
+#physics.producers.HEPevt.maxEvents:         1
+physics.producers.PNS.InputFileName:        "../../inputs/protodune/protodune_5_1450_0.dat"
+physics.producers.PNS.maxEvents:            1
 
 physics.producers.largeant.ChargeRecoveryMargin: 2.5 # cm
 services.LArG4Parameters.UseCustomPhysics:      true
