@@ -3,6 +3,7 @@
 #include "services_dune.fcl"
 #include "services_refactored_pdune.fcl"
 #include "singles_dune.fcl"
+#include "caldata_dune.fcl"
 #include "hitfindermodules_dune.fcl"
 #include "textfilegen.fcl"
 #include "corsika_protodune.fcl"
@@ -102,6 +103,7 @@ physics:
         PDFastSim:      @local::protodune_pdfastsim_pvs
         tpcrawdecoder:  @local::wirecell_protodunespmc
         opdigi:         @local::protodune_opdigi_refactor
+        caldata:        @local::producer_adcprep
         gaushit:        @local::dunefd_gaushitfinder
         rns:            { module_type: "RandomNumberSaver" }
     }
@@ -123,6 +125,7 @@ physics:
         PDFastSim,
         tpcrawdecoder,
         opdigi,
+        caldata,
         gaushit,
         rns
     ]
