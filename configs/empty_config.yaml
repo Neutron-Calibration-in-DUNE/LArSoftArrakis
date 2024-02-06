@@ -1,0 +1,4 @@
+larsoft:
+  run_name: "test"
+  tar_file: ""
+  verbose:  False
