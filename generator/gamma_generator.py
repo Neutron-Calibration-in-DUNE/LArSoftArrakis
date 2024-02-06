@@ -69,13 +69,13 @@ def sample_gamma_momentum(nCap: bool, gamma_E, numGammas = 1):
         Generate "numGammas" random points on a sphere of radius
         "gamma_E" (in MeV)
         """
-        gamma_mag = np.random.choice(gamma_E)
-        assert gamma_mag > 0., "Magnitude must be greater than 0.!"
+        # gamma_mag = np.random.choice(gamma_E)
+        # assert gamma_mag > 0., "Magnitude must be greater than 0.!"
 
         vecs = np.random.randn(3, numGammas)
         vecs /= np.linalg.norm(vecs, axis=0)
-        vecs *= gamma_mag
-        return vecs*0.001 #converting into GeV
+        vecs *= gamma_E
+        return vecs #converting into GeV
 
 
 def generate_ddg_gammas(
@@ -131,18 +131,6 @@ if __name__ == "__main__":
     num_files = 1
     
     for ii in range(num_files):
-        # output file name
-        # output_file = f"{output_dir}PD_gamma_test_{num_events}_{ii}.dat"
-        # generate_ddg_gammas(
-        #     num_events,
-        #     x_pos, 
-        #     y_pos, 
-        #     z_pos,
-        #     False,
-        #     0,
-        #     [0],
-        #     output_file,
-        # )
         output_file = f"{output_dir}gamma_pointCloud_input_{num_events}_{ii}.dat"
         generate_ddg_gammas(
             num_events,

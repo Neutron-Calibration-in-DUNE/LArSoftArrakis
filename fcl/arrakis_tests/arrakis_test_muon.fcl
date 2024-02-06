@@ -1,0 +1,4 @@
+#include "arrakis_test.fcl"
+
+services.TFileService.fileName:             "arrakis_test_muon.root" 
+physics.producers.HEPevt.InputFileName:     "../../inputs/arrakis_tests/arrakis_test_muon.dat"

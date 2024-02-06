@@ -16,12 +16,12 @@
 #include "detsim_dune10kt_wirecell_refactored.fcl"
 #include "tools_dune.fcl"
 
-process_name: pdunefullsim
+process_name: protodunefullsimarrakis
 
 services:
 {
     # Load the service that manages root files for histograms.
-    TFileService:             { fileName: "hist/labeling_sim_arrakis.root" }
+    TFileService:             { fileName: "protodune_full_sim_arrakis.root" }
     TimeTracker:              @local::dune_time_tracker
     MemoryTracker:            @local::dune_memory_tracker
     RandomNumberGenerator:    {} #ART native random number generator
@@ -77,64 +77,46 @@ physics:
 {
     producers:
     {
-        Ar39:           @local::protodunesp_39ar
-        Ar42:           @local::protodunesp_42ar
-        Kr85:           @local::protodunesp_85kr
-        Rn222:          @local::protodunesp_222rn
-        Cosmics:        @local::protodune_corsika_cmc
-        HEPevt:         @local::standard_textfilegen
+        #Ar39:           @local::protodunesp_39ar
+        #Ar42:           @local::protodunesp_42ar
+        #Kr85:           @local::protodunesp_85kr
+        #Rn222:          @local::protodunesp_222rn
+        #Cosmics:        @local::protodune_corsika_cmc
+        #HEPevt:         @local::standard_textfilegen
         PNS:            @local::standard_textfilegen
         largeant:       @local::protodune_larg4
         IonAndScint:    @local::protodune_ionandscint
         PDFastSim:      @local::protodune_pdfastsim_pvs
         tpcrawdecoder:  @local::wirecell_protodunespmc
         opdigi:         @local::protodune_opdigi_refactor
-        crt:            @local::CRTSimRefac_standard
-        caldata:        @local::producer_adcprep_notool          
-        wclsdatasp:     @local::protodunespdata_wctsp
         rns:            { module_type: "RandomNumberSaver" }
     }
-
     analyzers:
     {
         ana: @local::Arrakis
     }
-
-    #define the producer and filter modules for this path, order matters, 
-    #filters reject all following items.  see lines starting physics.producers below
     simulate: 
     [
-        Ar39,
-        Ar42,
-        Kr85,
-        Rn222,
-        Cosmics,
+        #Ar39,
+        #Ar42,
+        #Kr85,
+        #Rn222,
+        #Cosmics,
         #HEPevt,
         PNS, 
         largeant, 
         IonAndScint, 
-        #PDFastSim,
+        PDFastSim,
         tpcrawdecoder,
-        #opdigi,
-        #crt,
-        #caldata,
-        #wclsdatasp,
+        ##<--opdigi,
         rns
     ]
-
     analysis:  
     [ 
         ana 
     ]
- 
-    #define the output stream, there could be more than one if using filters 
-    #stream1:  [ out1 ]
 
-    #trigger_paths is a keyword and contains the paths that modify the art::event, 
-    #ie filters and producers
     trigger_paths:  [simulate]
-
-    #end_paths:      [stream1] 
     end_paths:      [ analysis ]
 
 }
@@ -144,25 +126,19 @@ outputs:
     out1:
     {
         module_type:        RootOutput
-        fileName:           "labeling_sim_arrakis.root"
+        fileName:           "protodune_full_sim_arrakis.root"
         dataTier:           "detector-simulated"
         compressionLevel:   1
         fastCloning:        true
         outputCommands:     [ "keep *" ]
     }
 }
-
-#block to define where the output goes.  if you defined a filter in the physics
-#block and put it in the trigger_paths then you need to put a SelectEvents: {SelectEvents: [XXX]}
-#entry in the output stream you want those to go to, where XXX is the label of the filter module(s)
-
-physics.producers.HEPevt.InputFileName:     "../../inputs/protodune/labeling_sim.dat"
+physics.producers.HEPevt.InputFileName:     ""
 physics.producers.HEPevt.maxEvents:         1
-physics.producers.PNS.InputFileName:        "../../inputs/protodune/protodune_10_1450_0.dat"
+physics.producers.PNS.InputFileName:        ""
 physics.producers.PNS.maxEvents:            10
 
 physics.producers.largeant.ChargeRecoveryMargin: 2.5 # cm
-
 services.LArG4Parameters.UseCustomPhysics:      true
 services.LArG4Parameters.EnabledPhysics: [ "LowEnergyEm",
                                            "FastOptical",
@@ -174,29 +150,25 @@ services.LArG4Parameters.EnabledPhysics: [ "LowEnergyEm",
                                            "Stopping" ]
 services.LArG4Parameters.ModifyProtonCut:   true
 services.LArG4Parameters.NewProtonCut:      0.0
-# we want to keep all ionization electrons
 services.LArG4Parameters.FillSimEnergyDeposits:     true
 services.LArG4Parameters.KeepEMShowerDaughters:     true
-# let's try setting this to zero to see what happens.
 services.LArG4Parameters.ParticleKineticEnergyCut:  0.0 # GeV
 services.LArG4Parameters.StoreTrajectories:         true
 services.LArG4Parameters.SparsifyTrajectories:      false
 services.LArG4Parameters.VisualizeNeutrals:         true
 services.LArG4Parameters.KeepTransportation:        true
-#services.LArG4Parameters.VisualizationEnergyCut:    1e-9 # GeV
 
 services.DetectorPropertiesService:    @local::protodunesp_detproperties
 services.DetectorPropertiesService.GetHVDriftfromSamweb:           false
 services.DetectorPropertiesService.GetReadOutWindowSizefromSamweb: false
 services.DetectorPropertiesService.UseRunDependentTemperature:     false
-# services.RawDigitPrepService.ToolNames: @local::pdsim_dataprep_tools_wirecell
-
 physics.producers.tpcrawdecoder.wcls_main.structs.DL: 4.0
 physics.producers.tpcrawdecoder.wcls_main.structs.DT: 8.8
 physics.producers.tpcrawdecoder.wcls_main.structs.lifetime: 35.0
 physics.producers.tpcrawdecoder.wcls_main.structs.driftSpeed:   1.565
 
-# physics.producers.caldata.DigitLabel:                       "tpcrawdecoder:daq" 
-# physics.producers.caldata.WireName:                         "dataprep" 
+physics.analyzers.ana.ProcessOpDetWaveforms:              false
+physics.analyzers.ana.ProcessOpDetBacktrackerRecords:     false
+physics.analyzers.ana.SaveSimulationWrangler:             true
 
-# physics.producers.wclsdatasp.wcls_main.params.reality:    "sim"
+physics.producers.PNS.InputFileName:        "test.dat"

@@ -8,7 +8,7 @@
 import os, sys
 sys.path.append("../");
 import numpy as np
-from PNS_generator import *
+from LArSoftArrakis.generator.pns_generator import *
 # ; from lib import *
 
 PGD_PION = 211      # PDG code for a pion
