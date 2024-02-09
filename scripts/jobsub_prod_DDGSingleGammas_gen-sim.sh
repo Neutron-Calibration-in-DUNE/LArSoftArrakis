@@ -38,7 +38,7 @@ QUALS=e20:prof
 
 # -- Commenting the following line and uncommenting the lines for standalone make this file standalone
 STANDALONE=0
-GRID_USER=drivera
+GRID_USER=${USER}
 GROUP=dune
 JOBSUB_GROUP=dune
 DIRECTORY=larsoft
@@ -46,7 +46,7 @@ DIRECTORY=larsoft
 
 #######STANDALONE LINES##########
 #STANDALONE=1
-#GRID_USER=drivera
+#GRID_USER=$USER
 #CLUSTER=$1 #pass as first argument
 #PROCESS=$1
 #GROUP=dune

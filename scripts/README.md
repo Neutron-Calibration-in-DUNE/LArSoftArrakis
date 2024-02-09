@@ -29,3 +29,12 @@ This contains the very long command for jobsub_lite.
 You can modify this to change the nubmer of jobs you want to request.
 Always test your scripts w/ a few jobs until you are sure that they will work.
 
+## 5. Check the status of your jobs
+```
+jobsub_q -G dune --user <username>
+```
+
+Also you can visualize the status of your jobs in the [FIFE monitor](https://fifemon.fnal.gov/monitor/d/000000053/experiment-batch-details?orgId=1&var-experiment=dune).
+
+
+More info on how to send jobs in [DUNE tutorials](https://dune.github.io/computing-training-202105/07-grid-job-submission/index.html).
