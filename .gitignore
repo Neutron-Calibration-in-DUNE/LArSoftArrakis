@@ -5,6 +5,7 @@ larsoft/**
 venv_python3
 scratch
 .logs
+.tar.gz
 
 
 # Byte-compiled / optimized / DLL files
